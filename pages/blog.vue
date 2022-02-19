@@ -1,14 +1,18 @@
 <template>
-  <div id="category-page" class="page-wrapper category-page">
-    <site-hero
-      :title="$store.state.name"
-      :subtitle="$store.state.content"
-      :image="$store.state.image"
-    />
+  <div id="home-page" class="page-wrapper home-page">
+    <site-hero :title="title" :subtitle="subtitle" :image="featureImage">
+      <button
+        v-if="$siteConfig.newsletter.on"
+        class="button is-primary"
+        @click="$eventBus.$emit('modal-triggered', 'newsletter-modal')"
+      >
+        Inschrijven op nieuwsbrief
+      </button>
+    </site-hero>
     <main-section theme="sidebar-right">
       <template v-slot:default>
-        <!-- Posts in Category -->
-        <posts-grid :category="[$store.state.name]" :per-row="2" />
+        <!-- All Posts -->
+        <posts-grid :per-row="2" />
       </template>
       <template v-slot:sidebar>
         <h3 class="subtitle">
@@ -38,21 +42,44 @@
         </div>
       </template>
     </main-section>
+    <news-letter-form-modal />
   </div>
 </template>
+
 <script>
-import { setPageData } from '../../helper'
+import { mapState } from 'vuex'
+import { setPageData } from '../helper'
+import NewsLetterFormModal from '~/components/NewsLetterFormModal'
+
 export default {
+  name: 'Blog',
   data() {
     return {
       allCats: []
     }
   },
+  head() {
+    return {
+      title: `Blog | ${this.$siteConfig.siteName}`
+    }
+  },
+  components: {
+    NewsLetterFormModal
+  },
+  computed: {
+    ...mapState(['title', 'subtitle', 'featureImage'])
+  },
   fetch({ store, params }) {
-    setPageData(store, { resource: 'category', slug: params.single })
+    setPageData(store, { slug: 'blog' })
   },
   async created() {
     this.allCats = await this.$cms.category.getAll()
   }
 }
 </script>
+
+<style>
+.home-page .under-subtitle {
+  border-top: none;
+}
+</style>
