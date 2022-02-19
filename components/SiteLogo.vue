@@ -58,7 +58,7 @@ export default {
       max-height: initial;
     }
     &.blink {
-      animation: logoBlink 0.4s steps(8, end) alternate;
+      animation: logoBlink 0.2s steps(8, end) alternate;
     }
   }
 }

@@ -12,7 +12,7 @@ export default {
   siteName: 'Chris Goes Tiny',
   tagline: 'Mijn blog over een tiny lifestyle',
   featureImage: '/uploads/cgt-banner.jpg',
-  logo: 'logo-component', // 'logo-component', // or '/logo.svg' for regular image
+  logo: '/logo.png', // 'logo-component', // or '/logo.svg' for regular image
   googleAnalytics: {
     on: true,
     id: process.env.GOOGLE_ANALYTICS_ID
