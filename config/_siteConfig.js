@@ -33,10 +33,6 @@ export default {
     {
       name: 'Contact',
       link: '/contact'
-    },
-    {
-      name: 'Categories',
-      link: '/categories'
     }
   ],
   hero: {
